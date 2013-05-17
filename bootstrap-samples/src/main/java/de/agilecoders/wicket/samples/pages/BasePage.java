@@ -1,7 +1,6 @@
 package de.agilecoders.wicket.samples.pages;
 
 import com.newrelic.api.agent.NewRelic;
-
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.bootstrap.behavior.BootstrapBaseBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.block.Code;
@@ -14,7 +13,6 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.MetaTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.OptimizedMobileViewportMetaTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.image.IconType;
-import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.AffixBehavior;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.ImmutableNavbarComponent;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.Navbar;
 import de.agilecoders.wicket.core.markup.html.bootstrap.navbar.NavbarButton;
@@ -25,6 +23,7 @@ import de.agilecoders.wicket.core.settings.ITheme;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.button.DropDownAutoOpen;
 import de.agilecoders.wicket.samples.WicketApplication;
 import de.agilecoders.wicket.samples.assets.base.ApplicationJavaScript;
+import de.agilecoders.wicket.samples.assets.base.Bootstrap3DocsCssResourceReference;
 import de.agilecoders.wicket.samples.assets.base.DocsCssResourceReference;
 import de.agilecoders.wicket.samples.assets.base.FixBootstrapStylesCssResourceReference;
 import de.agilecoders.wicket.samples.components.site.Footer;
@@ -206,6 +205,8 @@ abstract class BasePage<T> extends GenericWebPage<T> {
 
         if ("google".equalsIgnoreCase(activeTheme().name())) {
             response.render(CssHeaderItem.forReference(DocsCssResourceReference.GOOGLE));
+        } else if ("bootstrap3".equalsIgnoreCase(activeTheme().name())) {
+            response.render(CssHeaderItem.forReference(Bootstrap3DocsCssResourceReference.INSTANCE));
         }
     }
 
@@ -221,7 +222,7 @@ abstract class BasePage<T> extends GenericWebPage<T> {
      */
     private Component newNavigation(String markupId) {
         WebMarkupContainer navigation = new WebMarkupContainer(markupId);
-        navigation.add(new AffixBehavior("200"));
+        //navigation.add(new AffixBehavior("200"));
         navigation.setVisible(hasNavigation());
 
         return navigation;

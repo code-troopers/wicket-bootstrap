@@ -8,6 +8,7 @@ import de.agilecoders.wicket.core.markup.html.references.BootstrapPrettifyJavaSc
 import de.agilecoders.wicket.core.markup.html.references.ModernizrJavaScriptReference;
 import de.agilecoders.wicket.core.request.resource.caching.version.Adler32ResourceVersion;
 import de.agilecoders.wicket.core.settings.BootstrapSettings;
+import de.agilecoders.wicket.core.settings.DefaultThemeProvider;
 import de.agilecoders.wicket.core.settings.ThemeProvider;
 import de.agilecoders.wicket.extensions.javascript.GoogleClosureJavaScriptCompressor;
 import de.agilecoders.wicket.extensions.javascript.YuiCssCompressor;
@@ -19,13 +20,9 @@ import de.agilecoders.wicket.extensions.request.StaticResourceRewriteMapper;
 import de.agilecoders.wicket.less.BootstrapLess;
 import de.agilecoders.wicket.samples.assets.base.ApplicationJavaScript;
 import de.agilecoders.wicket.samples.assets.base.FixBootstrapStylesCssResourceReference;
-import de.agilecoders.wicket.samples.pages.HomePage;
+import de.agilecoders.wicket.samples.bootstrap3.pages.HomePage;
 import de.agilecoders.wicket.themes.markup.html.bootstrap3.Bootstrap3Theme;
 import de.agilecoders.wicket.themes.markup.html.bootstrap3.Bootstrap3ThemeJsResourceReference;
-import de.agilecoders.wicket.themes.markup.html.google.GoogleTheme;
-import de.agilecoders.wicket.themes.markup.html.metro.MetroTheme;
-import de.agilecoders.wicket.themes.markup.html.wicket.WicketTheme;
-import de.agilecoders.wicket.themes.settings.BootswatchThemeProvider;
 import org.apache.wicket.Application;
 import org.apache.wicket.Page;
 import org.apache.wicket.RuntimeConfigurationType;
@@ -92,7 +89,7 @@ public class WicketApplication extends WebApplication {
 
         optimizeForWebPerformance();
 
-        new AnnotatedMountScanner().scanPackage("de.agilecoders.wicket.samples.pages").mount(this);
+        new AnnotatedMountScanner().scanPackage("de.agilecoders.wicket.samples.bootstrap3.pages").mount(this);
 
         if (Strings.isTrue(properties.getProperty("cdn.useCdn"))) {
             final String cdn = properties.getProperty("cdn.baseUrl");
@@ -160,12 +157,9 @@ public class WicketApplication extends WebApplication {
      * configures wicket-bootstrap and installs the settings.
      */
     private void configureBootstrap() {
-        final ThemeProvider themeProvider = new BootswatchThemeProvider() {{
-            add(new MetroTheme());
-            add(new GoogleTheme());
-            add(new WicketTheme());
+        final ThemeProvider themeProvider = new DefaultThemeProvider() {{
             add(new Bootstrap3Theme());
-            defaultTheme("wicket");
+            defaultTheme("bootstrap3");
         }};
 
         final BootstrapSettings settings = new BootstrapSettings();
